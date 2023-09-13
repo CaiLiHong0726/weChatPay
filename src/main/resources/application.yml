@@ -1,0 +1,9 @@
+weixin:
+  appid: wx98b88af31f799270 # appid
+  mch-serial-no: 5BB08B7*******7772F2*****8386A0 # ?????
+  private-key-path: D:\code\javaCode\pem\apiclient_key.pem # ????
+  mch-id: 1650135438 # ???
+  key: G6lFcTDd***********4o6uvHbr4 # api??
+  domain: https://api.mch.weixin.qq.com # ???????
+  notify-domain: https://xk857.mynatapp.cc # ??????????
+
