@@ -3,6 +3,9 @@ package com.hong.wechatpay.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 微信回调地址，根据自己的项目来，不要直接照搬
+ */
 @Getter
 @AllArgsConstructor
 public enum WxNotifyType {

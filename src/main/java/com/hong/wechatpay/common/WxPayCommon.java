@@ -143,6 +143,103 @@ public class WxPayCommon {
     }
 
 
+    /**
+     * 创建微信支付订单-jsapi方式
+     * @param wxPayConfig 微信配置信息
+     * @param basePayData 基础请求信息，商品标题、商家订单id、订单价格
+     * @param openId 通过微信小程序或者公众号获取到用户的openId
+     * @param wxPayClient 微信请求客户端（）
+     * @return 微信支付二维码地址
+     */
+    @SneakyThrows
+    public static String wxJsApiPay(WxPayConfig wxPayConfig, WeChatBasePayData basePayData, String openId,CloseableHttpClient wxPayClient){
+        // 1.获取请求参数的Map格式
+        Map<String, Object> paramsMap = getBasePayParams(wxPayConfig, basePayData);
+        // 1.1 添加支付者信息
+        Map<String,String> payerMap = new HashMap();
+        payerMap.put("openid",openId);
+        paramsMap.put("payer",payerMap);
 
+        // 2.获取请求对象
+        HttpPost httpPost = getHttpPost(wxPayConfig, WxApiType.JSAPI_PAY, paramsMap);
+
+        // 3.完成签名并执行请求
+        CloseableHttpResponse response = null;
+        try {
+            response = wxPayClient.execute(httpPost);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DefaultException("微信支付请求失败");
+        }
+
+        // 4.解析response对象
+        HashMap<String, String> resultMap = resolverResponse(response);
+        if (resultMap != null) {
+            // native请求返回的是二维码链接，前端将链接转换成二维码即可
+            return resultMap.get("prepay_id");
+        }
+        return null;
+    }
+
+    /**
+     * 创建微信支付订单-APP方式
+     *
+     * @param wxPayConfig 微信配置信息
+     * @param basePayData 基础请求信息，商品标题、商家订单id、订单价格
+     * @param wxPayClient 微信请求客户端（）
+     * @return 微信支付二维码地址
+     */
+    @SneakyThrows
+    public static String wxAppPay(WxPayConfig wxPayConfig, WeChatBasePayData basePayData, CloseableHttpClient wxPayClient) {
+        // 1.获取请求参数的Map格式
+        Map<String, Object> paramsMap = getBasePayParams(wxPayConfig, basePayData);
+
+        // 2.获取请求对象
+        HttpPost httpPost = getHttpPost(wxPayConfig, WxApiType.APP_PAY, paramsMap);
+
+        // 3.完成签名并执行请求
+        CloseableHttpResponse response = null;
+        try {
+            response = wxPayClient.execute(httpPost);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DefaultException("微信支付请求失败");
+        }
+
+        // 4.解析response对象
+        HashMap<String, String> resultMap = resolverResponse(response);
+        if (resultMap != null) {
+            // native请求返回的是二维码链接，前端将链接转换成二维码即可
+            return resultMap.get("prepay_id");
+        }
+        return null;
+    }
+
+
+    @SneakyThrows
+    public static String wxH5Pay(WxPayConfig wxPayConfig, WeChatBasePayData basePayData, CloseableHttpClient wxPayClient) {
+        // 1.获取请求参数的Map格式
+        Map<String, Object> paramsMap = getBasePayParams(wxPayConfig, basePayData);
+
+        // 2.获取请求对象
+        HttpPost httpPost = getHttpPost(wxPayConfig, WxApiType.NATIVE_PAY, paramsMap);
+
+        // 3.完成签名并执行请求
+        CloseableHttpResponse response = null;
+        try {
+            response = wxPayClient.execute(httpPost);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DefaultException("微信支付请求失败");
+        }
+
+        // 4.解析response对象
+        HashMap<String, String> resultMap = resolverResponse(response);
+        if (resultMap != null) {
+            // native请求返回的是二维码链接，前端将链接转换成二维码即可
+            return resultMap.get("h5_url");
+        }
+        return null;
+    }
 
 }
