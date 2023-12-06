@@ -56,9 +56,10 @@ public enum  WxApiType {
     /**
      * 申请资金账单
      */
-    FUND_FLOW_BILLS("/v3/bill/fundflowbill");
+    FUND_FLOW_BILLS("/v3/bill/fundflowbill"),
 
 
+    TRANSFER_BATCHES("/v3/bill/TRANSFER");
     /**
      * 类型
      */
