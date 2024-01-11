@@ -25,4 +25,8 @@ public class DefaultException extends Exception {
     public void aaa(){
 
     };
+
+    public void bbb(){
+
+    };
 }
