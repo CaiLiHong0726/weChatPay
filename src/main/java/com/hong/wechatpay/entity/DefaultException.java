@@ -1,8 +1,5 @@
 package com.hong.wechatpay.entity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 public class DefaultException extends Exception {
 
     public DefaultException() {
@@ -25,5 +22,7 @@ public class DefaultException extends Exception {
         super(cause);
     }
 
+    public void aaa(){
 
+    };
 }
