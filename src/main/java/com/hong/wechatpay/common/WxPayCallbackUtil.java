@@ -122,6 +122,7 @@ public class WxPayCallbackUtil{
         // 1.处理通知参数
         final String body = HttpUtils.readData(request);
         HashMap<String, Object> bodyMap = gson.fromJson(body, HashMap.class);
+        //test
 
         // 2.签名验证
         WechatPayValidatorForRequest wechatForRequest = new WechatPayValidatorForRequest(verifier, body, (String) bodyMap.get("id"));
