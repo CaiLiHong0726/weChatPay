@@ -119,6 +119,8 @@ public class WxPayCallbackUtil{
     public static String wxPayRefundCallback(HttpServletRequest request, HttpServletResponse response, Verifier verifier, WxPayConfig wxPayConfig, WechatRefundCallback refundCallback) {
         Gson gson = new Gson();
 
+        //test
+
         // 1.处理通知参数
         final String body = HttpUtils.readData(request);
         HashMap<String, Object> bodyMap = gson.fromJson(body, HashMap.class);
